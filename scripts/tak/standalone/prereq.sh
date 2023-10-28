@@ -89,6 +89,8 @@ printf $info "\nAllow 22 [SSH]\n"
 sudo ufw allow OpenSSH
 echo
 sudo ufw enable
+echo
+sudo ufw deny 5432
 printf $warning "\n\n------------ Current Firewall Rules ------------\n\n"
 sudo ufw status verbose
 
