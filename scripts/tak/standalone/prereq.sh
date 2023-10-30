@@ -23,19 +23,9 @@ sudo apt -y install curl gnupg gnupg2 ca-certificates
 printf $info "\n------------Setting Up PostGreSql15 repo-------\n\n"
 sudo install -d /usr/share/postgresql-common/pgdg
 sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
-sudo curl --proxy http://proxy.xisystems.co.uk:8080 https://www.postgresql.org/media/keys/ACCC4CF8.asc --output /etc/apt/keyrings/postgresql.asc
-
+# for proxy sudo curl --proxy http://proxy.xisystems.co.uk:8080 https://www.postgresql.org/media/keys/ACCC4CF8.asc --output /etc/apt/keyrings/postgresql.asc
+sudo curl https://www.postgresql.org/media/keys/ACCC4CF8.asc --output /etc/apt/keyrings/postgresql.asc
 sudo sh -c 'echo "deb [signed-by=/etc/apt/keyrings/postgresql.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/postgresql.list'
-
-
-
-
-
-#sudo mkdir -p /etc/apt/keyrings/
-#sudo curl https://www.postgresql.org/media/keys/ACCC4CF8.asc --output /etc/apt/keyrings/postgresql.asc
-
-#sudo rm -f /etc/apt/sources.list.d/postgresql.list
-#echo "deb [signed-by=/etc/apt/keyrings/postgresql.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee -a /etc/apt/sources.list.d/postgresql.list
 
 printf $info "\n------------Installing Dependencies-------\n\n"
 
@@ -90,6 +80,7 @@ sudo ufw allow OpenSSH
 echo
 sudo ufw enable
 echo
+printf $info "\nDeny 5432 PostGresql\n"
 sudo ufw deny 5432
 printf $warning "\n\n------------ Current Firewall Rules ------------\n\n"
 sudo ufw status verbose
